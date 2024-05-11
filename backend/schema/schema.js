@@ -7,9 +7,9 @@ import {
   GraphQLNonNull,
   GraphQLEnumType,
 } from "graphql";
-import Client from "../models/Client.js";
-import Project from "../models/Project.js";
 
+import Project from "../models/Project.js";
+import Client from "../models/Client.js";
 // Project Type
 const ProjectType = new GraphQLObjectType({
   name: "Project",
@@ -21,7 +21,7 @@ const ProjectType = new GraphQLObjectType({
     client: {
       type: ClientType,
       resolve(parent, args) {
-        return _findById(parent.clientId);
+        return Client.findById(parent.clientId);
       },
     },
   }),
@@ -44,27 +44,27 @@ const RootQuery = new GraphQLObjectType({
     projects: {
       type: new GraphQLList(ProjectType),
       resolve(parent, args) {
-        return find();
+        return Project.find();
       },
     },
     project: {
       type: ProjectType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return findById(args.id);
+        return Project.findById(args.id);
       },
     },
     clients: {
       type: new GraphQLList(ClientType),
       resolve(parent, args) {
-        return _find();
+        return Client.find();
       },
     },
     client: {
       type: ClientType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _findById(args.id);
+        return Client.findById(args.id);
       },
     },
   },
@@ -99,13 +99,13 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
-        find({ clientId: args.id }).then((projects) => {
+        Project.find({ clientId: args.id }).then((projects) => {
           projects.forEach((project) => {
             project.deleteOne();
           });
         });
 
-        return _findByIdAndRemove(args.id);
+        return Client.findByIdAndRemove(args.id);
       },
     },
     // Add a project
@@ -145,7 +145,7 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
-        return findByIdAndRemove(args.id);
+        return Project.findByIdAndRemove(args.id);
       },
     },
     // Update a project
@@ -167,7 +167,7 @@ const mutation = new GraphQLObjectType({
         },
       },
       resolve(parent, args) {
-        return findByIdAndUpdate(
+        return Project.findByIdAndUpdate(
           args.id,
           {
             $set: {
@@ -183,9 +183,7 @@ const mutation = new GraphQLObjectType({
   },
 });
 
-const schema = new GraphQLSchema({
+export default new GraphQLSchema({
   query: RootQuery,
   mutation,
 });
-
-export default schema;
