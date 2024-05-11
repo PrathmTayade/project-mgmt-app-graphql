@@ -7,9 +7,9 @@ import {
   GraphQLNonNull,
   GraphQLEnumType,
 } from "graphql";
-
 import Project from "../models/Project.js";
 import Client from "../models/Client.js";
+
 // Project Type
 const ProjectType = new GraphQLObjectType({
   name: "Project",

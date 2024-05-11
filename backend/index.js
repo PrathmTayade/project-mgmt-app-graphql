@@ -1,7 +1,7 @@
-import express from "express";
 import cors from "cors";
+import express from "express";
 import { graphqlHTTP } from "express-graphql";
-import connectDB, { addToDb } from "./config/db.js";
+import connectDB from "./config/db.js";
 import schema from "./schema/schema.js";
 const port = process.env.PORT;
 
