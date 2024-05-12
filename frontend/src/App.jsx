@@ -23,9 +23,9 @@ const cache = new InMemoryCache({
     },
   },
 });
-
+console.log("api", `${import.meta.env.VITE_GRAPHQL_API_URL}/graphql`);
 const client = new ApolloClient({
-  uri: import.meta.env.VITE_GRAPHQL_API_URL,
+  uri: `${import.meta.env.VITE_GRAPHQL_API_URL}/graphql`,
   cache,
 });
 
