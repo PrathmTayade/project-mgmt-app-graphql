@@ -12,7 +12,7 @@ const app = express();
 connectDB();
 app.use(cors());
 app.use(morgan("tiny"));
-app.use("/", (req, res) => res.json({ Welcome: "to graphql api" }).status(200));
+app.get("/", (req, res) => res.send("Express on Vercel"));
 app.use("/health", (req, res) => res.json({ health: "ok" }).status(200));
 app.use(
   "/graphql",
