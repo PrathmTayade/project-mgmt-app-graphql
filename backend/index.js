@@ -12,6 +12,7 @@ const app = express();
 connectDB();
 app.use(cors());
 app.use(morgan("tiny"));
+app.get("/", (req, res) => res.send("Welcome to project management api "));
 app.use("/health", (req, res) => res.json({ health: "ok" }).status(200));
 app.use(
   "/graphql",
@@ -22,3 +23,5 @@ app.use(
 );
 
 app.listen(port, console.log(`Server running on port ${port}`));
+
+export default app;
