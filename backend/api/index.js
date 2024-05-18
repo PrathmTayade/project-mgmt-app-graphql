@@ -4,6 +4,7 @@ import { graphqlHTTP } from "express-graphql";
 import connectDB from "./config/db.js";
 import schema from "./schema/schema.js";
 import morgan from "morgan";
+
 const port = process.env.PORT;
 
 const app = express();
@@ -18,7 +19,7 @@ app.use(
   "/graphql",
   graphqlHTTP({
     schema,
-    graphiql: true,
+    graphiql: process.env.NODE_ENV !== "production",
   })
 );
 
