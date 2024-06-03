@@ -13,13 +13,15 @@ const app = express();
 connectDB();
 app.use(cors());
 app.use(morgan("tiny"));
-app.get("/", (req, res) => res.send("Welcome to project mgmt api - PrathmTayade"));
+app.get("/", (req, res) =>
+  res.send("Welcome to project mgmt api - PrathmTayade")
+);
 app.use("/health", (req, res) => res.json({ health: "ok" }).status(200));
 app.use(
   "/graphql",
   graphqlHTTP({
     schema,
-    graphiql: process.env.NODE_ENV !== "production",
+    graphiql: true,
   })
 );
 
